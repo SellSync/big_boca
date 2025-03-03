@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { OrderCard } from "@/components/order-card"
 import { StatsCard } from "@/components/stats-card"
 import { getMockOrders } from "@/lib/data"
+import Image from "next/image"
 
 export default function Dashboard() {
   const orders = getMockOrders()
@@ -17,10 +18,9 @@ export default function Dashboard() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+      <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b  bg-rose-600 px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Utensils className="h-6 w-6" />
-          <span className="hidden md:inline-block">Lanchonete App</span>
+          <Image src="marca/icone.svg" width={50} height={50} alt="big-boca"/>
         </Link>
         <nav className="ml-auto flex gap-2">
           <Link href="/menu">
