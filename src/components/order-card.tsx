@@ -1,29 +1,39 @@
-import { Clock, Check } from "lucide-react"
+import { Clock, Check } from "lucide-react";
+import { useState } from "react";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import type { Order } from "@/lib/types"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import type { Order } from "@/lib/types";
 
 interface OrderCardProps {
-  order: Order
+  order: Order;
 }
 
 export function OrderCard({ order }: OrderCardProps) {
+  const [status, setStatus] = useState(order.status);
+
   const statusMap = {
     pending: { label: "Pendente", icon: Clock, variant: "outline" as const },
     completed: { label: "Concluído", icon: Check, variant: "default" as const },
-  }
+  };
 
-  const status = statusMap[order.status]
+  const handleComplete = () => {
+    if (status === "pending") {
+      setStatus("completed");
+    }
+  };
+
+  const currentStatus = statusMap[status];
 
   return (
     <Card>
       <CardHeader className="pb-2">
         <div className="flex items-start justify-between">
           <CardTitle className="text-lg">Pedido #{order.id.slice(-4)}</CardTitle>
-          <Badge variant={status.variant}>
-            <status.icon className="mr-1 h-3 w-3" />
-            {status.label}
+          <Badge variant={currentStatus.variant}>
+            <currentStatus.icon className="mr-1 h-3 w-3" />
+            {currentStatus.label}
           </Badge>
         </div>
         <p className="text-sm text-muted-foreground">Cliente: {order.customerName}</p>
@@ -46,8 +56,12 @@ export function OrderCard({ order }: OrderCardProps) {
           <span className="font-bold">R$ {order.total.toFixed(2)}</span>
         </div>
         <div className="text-xs text-muted-foreground mt-1">{new Date(order.createdAt).toLocaleString()}</div>
+        {status === "pending" && (
+          <Button className="mt-2 w-full" onClick={handleComplete}>
+            Finalizado
+          </Button>
+        )}
       </CardFooter>
     </Card>
-  )
+  );
 }
-
