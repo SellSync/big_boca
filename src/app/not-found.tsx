@@ -1,11 +1,8 @@
 import Link from "next/link";
-import { Footer } from "@/components/footer";
-import { NavBar } from "@/components/nav-bar";
 
 const NotFound = () => {
   return (
     <>
-      <NavBar />
       <div className="flex min-h-screen items-center justify-center bg-gray-100 p-6">
         <div className="text-center animate-fadeIn opacity-100">
           <h1 className="text-9xl font-bold text-gray-800">404</h1>
@@ -23,7 +20,6 @@ const NotFound = () => {
           </Link>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
